@@ -1,3 +1,7 @@
+mod day1;
+
 fn main() {
-    println!("Hello, world!");
+    let timer = std::time::Instant::now();
+    day1::run();
+    println!("{}us", timer.elapsed().as_micros());
 }
