@@ -1,11 +1,11 @@
-/// (x(i) + ... + x(i-n)) - (x(i-1) + ... + x(i-n-1)) = x(i) - x(i-n-1)
+/// (x(i) + ... + x(i-n+1)) - (x(i-1) + ... + x(i-n)) = x(i) - x(i-n)
 /// where n is the size of the window
-/// i - n - 1 >= 0, i >= n + 1
+/// i - n  >= 0, i >= n
 fn solve(depths: &Vec<u16>, window_size: usize) -> u16 {
     let mut steps = 0;
 
-    for i in (1 + window_size)..depths.len() {
-        if depths[i] > depths[i - window_size - 1] {
+    for i in window_size..depths.len() {
+        if depths[i] > depths[i - window_size] {
             steps += 1;
         }
     }
@@ -17,8 +17,8 @@ pub fn run() {
 
     let contents = std::fs::read_to_string("inputs/day1").unwrap();
     let depths = contents.lines().map(|s| s.parse().unwrap()).collect();
-    let solution1 = solve(&depths, 0);
-    let solution2 = solve(&depths, 2);
+    let solution1 = solve(&depths, 1);
+    let solution2 = solve(&depths, 3);
 
     println!(
         "solution 1 : {}, solution 2 : {}, {}us",
